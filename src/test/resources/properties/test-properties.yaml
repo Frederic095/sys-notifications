@@ -1,0 +1,14 @@
+################################
+# API Manager
+autodiscoveryId: "000000"
+
+# Listener
+https:
+  port: "8085"
+################################
+
+sendgrid:
+  host: "smtp.sendgrid.net"
+  port: "587"
+  api_key: "${secure::sendgrid.api_key}"
+  email: "frederic.nguyen095@gmail.com"

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<sub-flow name="impl-post-email" doc:id="f02d26e9-0858-4897-808c-3d9673ebd810" >
+		<logger level="DEBUG" doc:name="Input Email Step" doc:id="10c59a82-08a7-43ba-afe8-8a524f0a78be" message='#[%dw 2.0&#10;output application/json indent=false&#10;&#10;---&#10;{&#10;    step: "Input Mail Step",&#10;    data: {&#10;        business: {emails : " Nombre de email à faire : $(sizeOf(payload))"},&#10;        technical: {}&#10;    }&#10;}]' category="${app.name}" />
+		<foreach doc:name="For Each" doc:id="8fae3f42-5b0e-4bda-aa7d-80140c32fefe" collection="#[payload]">
+			<set-variable value="#[output json&#10;&#10;---&#10;&#10;payload.subscriber.email]" doc:name="{email}" doc:id="200945ed-31a6-4dd6-b2ef-8e7725df4c87" variableName="email"/>
+			<set-variable value='#[output json&#10;&#10;---&#10;&#10;"$(payload.subscriber.firstname) $(payload.subscriber.lastname)"]' doc:name="[fullName]" doc:id="bf57a937-cb96-4a76-a312-ade2e8286b67" variableName="fullName"/>
+			<ee:transform doc:name="Transform Message" doc:id="03630ec2-f84e-4749-89ba-1c663494e035">
+				<ee:message>
+					<ee:set-payload resource="modules/SendEmail.dwl" />
+				</ee:message>
+			</ee:transform>
+			<logger level="DEBUG" doc:name="After transform" doc:id="6dc999ef-5c19-490c-a3c2-28c65a6f4b95" message='#[%dw 2.0&#10;output json indent=false&#10;&#10;---&#10;{&#10; step: "After Transform Step",&#10; data: {&#10;  business: {&#10;  data: payload&#10;  },&#10;  technical: {}&#10; }&#10;}]' category="${app.name}"/>
+			<http:request doc:name="Request" doc:id="b1b8065a-7fe3-43ac-9bdf-2bb0c1b63c5e" method="POST" url="https://api.sendgrid.com/v3/mail/send">
+				<http:body ><![CDATA[#[output application/json
+---
+{
+  "personalizations":[
+    {
+      "to":[
+        {
+          "email": vars.email,
+          "name": vars.fullName
+        }
+      ],
+      "subject":"Nouveaux films cette semaine !"
+    }
+  ],
+  "content":[
+    {
+      "type":"text/html",
+      "value": payload
+    }
+  ],
+  "from":{
+    "email":"nguyenfrederic000@gmail.com",
+    "name":"Cinema Newsletter"
+  }
+}]]]></http:body>
+				<http:headers ><![CDATA[#[%dw 2.0
+output application/json
+---
+{
+    Authorization: "Bearer " ++ p('sendgrid.api_key'),
+    "Content-Type": "application/json"
+}]]]></http:headers>
+			</http:request>
+			<logger level="DEBUG" doc:name="After sending Email" doc:id="0125de97-2eff-4886-bcd3-97012580ab3b" message='#[%dw 2.0&#10;output json indent=false&#10;&#10;---&#10;{&#10; step: "After email Sent",&#10; data: {&#10;  business: {&#10;  	email: vars.email,&#10;  	fullName : vars.fullName&#10;  },&#10;  technical: {}&#10; }&#10;}]' category="${app.name}"/>
+		</foreach>
+		<logger level="DEBUG" doc:name="End Flow" doc:id="18994358-328d-4faa-a067-0ca6fb77b4ec" message='#[%dw 2.0&#10;output json&#10;&#10;---&#10;{&#10; step: "post email endFlow",&#10; data: {&#10;  business: {},&#10;  technical: { &#10;  	email : sizeOf(payload)&#10;  }&#10; }&#10;}]' category="${app.name}" />
+	</sub-flow>
+</mule>

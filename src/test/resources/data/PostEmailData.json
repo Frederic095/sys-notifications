@@ -1,0 +1,96 @@
+[{
+  "subscriber": {
+    "firstname": "John",
+    "lastname": "Doe",
+    "email": "jdoe@gmail.com",
+    "genres": [
+      "Aventure",
+      "Animation",
+      "Action"
+    ]
+  },
+  "releases": [
+    {
+      "movie": {
+        "id": 120,
+        "name": "Le Seigneur des anneaux : La Communauté de l'anneau",
+        "description": "Le jeune et timide Hobbit, Frodon Sacquet, hérite d'un anneau. Bien loin d'être une simple babiole, il s'agit de l'Anneau Unique, un instrument de pouvoir absolu qui permettrait à Sauron, le Seigneur des ténèbres, de régner sur la Terre du Milieu et de réduire en esclavage ses peuples. À moins que Frodon, aidé d'une Compagnie constituée de Hobbits, d'Hommes, d'un Magicien, d'un Nain, et d'un Elfe, ne parvienne à emporter l'Anneau à travers la Terre du Milieu jusqu'à la Crevasse du Destin, lieu où il a été forgé, et à le détruire pour toujours. Un tel périple signifie s'aventurer très loin en Mordor, les terres du Seigneur des ténèbres, où est rassemblée son armée d'Orques maléfiques… La Compagnie doit non seulement combattre les forces extérieures du mal mais aussi les dissensions internes et l'influence corruptrice qu'exerce l'Anneau lui-même.",
+        "date": "2001-12-19",
+        "director": "Peter Jackson",
+        "genres": [
+          "Aventure",
+          "Fantastique",
+          "Action"
+        ],
+        "image": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/hZkgoQYus5vegHoetLkCJzb17zJ.jpg",
+        "originalLanguage": "en",
+        "popularity": 168.1,
+        "trailer": "https://www.youtube.com/watch?v=uEMJ_yr4x0w",
+        "credits": {
+          "mainActors": [
+            {
+              "id": 109,
+              "gender": "male",
+              "name": "Elijah Wood",
+              "image": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/7UKRbJBNG7mxBl2QQc5XsAh6F8B.jpg",
+              "character": "Frodo Baggins"
+            },
+            {
+              "id": 1327,
+              "gender": "male",
+              "name": "Ian McKellen",
+              "image": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/5cnnnpnJG6TiYUSS7qgJheUZgnv.jpg",
+              "character": "Gandalf the Grey"
+            },
+            {
+              "id": 110,
+              "gender": "male",
+              "name": "Viggo Mortensen",
+              "image": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/vH5gVSpHAMhDaFWfh0Q7BG61O1y.jpg",
+              "character": "Aragorn"
+            }
+          ],
+          "technicalTeam": [
+            {
+              "id": 1327,
+              "gender": "male",
+              "name": "Peter Jackson",
+              "image": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/bNc908d59Ba8VDNr4eCcm4G1cR.jpg",
+              "job": "Director"
+            },
+            {
+              "id": 123,
+              "gender": "male",
+              "name": "Barrie M. Osborne",
+              "image": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/xWtXYk6M5NFroddcQDviLlxOnkU.jpg",
+              "job": "Producer"
+            }
+          ]
+        }
+      },
+      "schedules": {
+        "monday": [
+          "20h15"
+        ],
+        "tuesday": [
+          "20h15"
+        ],
+        "wednesday": [
+          "20h15"
+        ],
+        "thursday": [
+          "20h15"
+        ],
+        "friday": [
+          "20h15"
+        ],
+        "saturday": [
+          "20h15"
+        ],
+        "sunday": [
+          "20h15"
+        ]
+      }
+    }
+  ]
+}]
