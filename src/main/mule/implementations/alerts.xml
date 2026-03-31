@@ -58,7 +58,7 @@ output application/json
 			</email:send> [STUDIO] -->
 			<logger level="DEBUG" doc:name="After sending Email" doc:id="9e84e7fe-2720-41e0-b988-98039ddad0cb" message='#[%dw 2.0&#10;output json indent=false&#10;&#10;---&#10;{&#10; step: "After email Sent",&#10; data: {&#10;  business: {&#10;  	email: vars.email,&#10;  	fullName : vars.fullName&#10;  },&#10;  technical: {}&#10; }&#10;}]' category="${app.name}" />
 		</foreach>
-		<set-payload value="#[vars.mail]" doc:name="HTML response" doc:id="5cdbb598-efae-47dc-83ad-38c062923819" mimeType="text/html" />
+		<!-- [STUDIO:"HTML response"]<set-payload value="#[vars.mail&#93;" doc:name="HTML response" doc:id="5cdbb598-efae-47dc-83ad-38c062923819" mimeType="text/html" /> [STUDIO] -->
 		<set-variable value="Notifications sent successfully." doc:name="[customMessage]" doc:id="6f89d84a-54a8-4c96-b19c-23c3dd9c0108" variableName="customMessage" />
 		<logger level="DEBUG" doc:name="End Flow" doc:id="f398f04a-59b7-4435-b42c-e004c743c8e8" message='#[%dw 2.0&#10;output json&#10;&#10;---&#10;{&#10; step: "post email endFlow",&#10; data: {&#10;  business: {},&#10;  technical: { &#10;  	email : sizeOf(payload)&#10;  }&#10; }&#10;}]' category="${app.name}" />
 	</sub-flow>
