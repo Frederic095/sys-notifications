@@ -44,9 +44,15 @@
 		<dependency>
 			<groupId>10339a90-b6cf-4a68-8cc1-ec2e54f05373</groupId>
 			<artifactId>sys-notifications-api</artifactId>
-			<version>1.0.0</version>
+			<version>1.0.1</version>
 			<classifier>raml</classifier>
 			<type>zip</type>
+		</dependency>
+		<dependency>
+			<groupId>org.mule.connectors</groupId>
+			<artifactId>mule-email-connector</artifactId>
+			<version>1.7.7</version>
+			<classifier>mule-plugin</classifier>
 		</dependency>
 	</dependencies>
 

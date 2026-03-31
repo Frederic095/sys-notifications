@@ -33,6 +33,9 @@
     </flow>
     <!-- [STUDIO:"METHOD:\ENDPOINT(URI):sys-notifications-api-config"]<flow name="METHOD:\ENDPOINT(URI):sys-notifications-api-config" doc:id="fbd353e0-36d4-4c3f-843f-74896877d562" /> [STUDIO] -->
     <flow name="post:\releases:application\json:sys-notifications-api-config">
-		<flow-ref doc:name="impl-post-email" doc:id="1089ab74-d81e-476b-9363-11b0340d926f" name="impl-post-email"/>
+        <flow-ref doc:name="impl-post-email" doc:id="1089ab74-d81e-476b-9363-11b0340d926f" name="impl-post-email" />
+    </flow>
+    <flow name="post:\alerts:application\json:sys-notifications-api-config">
+		<flow-ref doc:name="impl-post-alerts" doc:id="9c368acb-6c71-4c7c-b91f-0fc9f0768849" name="impl-post-alerts"/>
     </flow>
 </mule>

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry kind="con" path="MULE_LIB/org.mule.connectors/mule-email-connector/1.7.7"/>
+	<classpathentry kind="con" path="org.mule.tooling.API_SPEC_LIB/10339a90-b6cf-4a68-8cc1-ec2e54f05373/sys-notifications-api/1.0.1"/>
 	<classpathentry kind="con" path="org.mule.tooling.MULE_PROJECT_LIB"/>
-	<classpathentry kind="con" path="org.mule.tooling.API_SPEC_LIB/10339a90-b6cf-4a68-8cc1-ec2e54f05373/sys-notifications-api/1.0.0"/>
 	<classpathentry kind="con" path="MULE_LIB/org.mule.modules/mule-apikit-module/1.10.4"/>
 	<classpathentry kind="con" path="org.mule.tooling.API_SPEC_LIB/10339a90-b6cf-4a68-8cc1-ec2e54f05373/paradiso-library/1.0.0"/>
 	<classpathentry kind="con" path="MULE_LIB/com.mulesoft.munit/munit-tools/3.4.0"/>

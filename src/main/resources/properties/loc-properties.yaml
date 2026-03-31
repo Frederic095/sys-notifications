@@ -11,4 +11,5 @@ sendgrid:
   host: "smtp.sendgrid.net"
   port: "587"
   api_key: "${secure::sendgrid.api_key}"
-  email: "frederic.nguyen095@gmail.com"
+  fromAddress: "frederic.nguyen095@gmail.com"
+  user: "frederic.nguyen095@gmail.com!"

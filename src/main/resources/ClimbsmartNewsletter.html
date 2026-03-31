@@ -1,0 +1,108 @@
+<html>
+    <head>
+        <style>
+            body {
+                font-family: 'Arial', sans-serif;
+                background-color: #f9fafb;
+                color: #333;
+                margin: 0;
+                padding: 20px;
+            }
+            header h1 {
+                font-weight: 700;
+                color: #2c3e50;
+                margin-bottom: 10px;
+            }
+            .user-info {
+                background-color: #ffffff;
+                border-radius: 10px;
+                padding: 15px 20px;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                margin-bottom: 30px;
+            }
+            h2 {
+                color: #2980b9;
+                margin-top: 20px;
+            }
+            .spot-card {
+                background-color: #ffffff;
+                border-radius: 10px;
+                padding: 20px;
+                margin-bottom: 25px;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            }
+            .spot-card h2 {
+                margin-top: 0;
+                color: #27ae60;
+            }
+            .spot-card h3 {
+                margin-bottom: 10px;
+                color: #34495e;
+            }
+            .spot-card p {
+                margin: 5px 0;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 10px;
+            }
+            table, th, td {
+                border: 1px solid #ddd;
+            }
+            th {
+                background-color: #f1f2f6;
+                padding: 8px;
+                text-align: left;
+            }
+            td {
+                padding: 8px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <header>
+            #[ %dw 2.0
+               output application/xml writeDeclaration=false
+               var user = payload.user
+               ---
+               h1: "Bonjour $(user.firstname) $(user.lastname) !"
+            ]
+        </header>
+
+        <div class="user-info">
+            #[ %dw 2.0
+               output application/xml writeDeclaration=false
+               var user = payload.user
+               ---
+               div: {
+                   p: "Email : $(user.email)",
+                   p: "Votre niveau : $(user.level)"
+               }
+            ]
+        </div>
+
+        <h2>Voici des spots d'escalade recommandés :</h2>
+
+        #[ %dw 2.0
+           output application/xml writeDeclaration=false
+           var spots = payload."climbing-spots"
+           ---
+           div: spots map (spot) -> {
+               div @(class:"spot-card"): {
+                   h2: "Nom du spot : $(spot.spotName)",
+                   h3: "Localisation : $(spot.location)",
+                   p: "Difficulté : $(spot.grade.difficulty)",
+                   p: "Niveau requis : $(spot.grade.level)",
+                   h3: "Prévisions météo :",
+                   table: {
+                       thead: tr: { th: ["Date", "Temp min", "Temp max", "Météo"] },
+                       tbody: spot.forecast map (f) -> 
+                           tr: { td: [ f.date, f.temperature.min ++ "°C", f.temperature.max ++ "°C", f.weather ] }
+                   }
+               }
+           }
+        ]
+    </body>
+</html>
