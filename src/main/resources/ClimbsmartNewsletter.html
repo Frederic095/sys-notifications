@@ -1,108 +1,67 @@
-<html>
-    <head>
-        <style>
-            body {
-                font-family: 'Arial', sans-serif;
-                background-color: #f9fafb;
-                color: #333;
-                margin: 0;
-                padding: 20px;
-            }
-            header h1 {
-                font-weight: 700;
-                color: #2c3e50;
-                margin-bottom: 10px;
-            }
-            .user-info {
-                background-color: #ffffff;
-                border-radius: 10px;
-                padding: 15px 20px;
-                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-                margin-bottom: 30px;
-            }
-            h2 {
-                color: #2980b9;
-                margin-top: 20px;
-            }
-            .spot-card {
-                background-color: #ffffff;
-                border-radius: 10px;
-                padding: 20px;
-                margin-bottom: 25px;
-                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            }
-            .spot-card h2 {
-                margin-top: 0;
-                color: #27ae60;
-            }
-            .spot-card h3 {
-                margin-bottom: 10px;
-                color: #34495e;
-            }
-            .spot-card p {
-                margin: 5px 0;
-            }
-            table {
-                width: 100%;
-                border-collapse: collapse;
-                margin-top: 10px;
-            }
-            table, th, td {
-                border: 1px solid #ddd;
-            }
-            th {
-                background-color: #f1f2f6;
-                padding: 8px;
-                text-align: left;
-            }
-            td {
-                padding: 8px;
-            }
-        </style>
-    </head>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Mes Spots d'Escalade</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #eef2f7; color: #333; padding: 30px 20px; }
 
-    <body>
-        <header>
-            #[ %dw 2.0
-               output application/xml writeDeclaration=false
-               var user = payload.user
-               ---
-               h1: "Bonjour $(user.firstname) $(user.lastname) !"
-            ]
-        </header>
+        header { text-align: center; margin-bottom: 10px; }
+        header h1 { font-size: 2em; color: #1a252f; font-weight: 700; }
+        header p.subtitle { color: #7f8c8d; font-size: 0.95em; margin-top: 6px; }
 
-        <div class="user-info">
-            #[ %dw 2.0
-               output application/xml writeDeclaration=false
-               var user = payload.user
-               ---
-               div: {
-                   p: "Email : $(user.email)",
-                   p: "Votre niveau : $(user.level)"
-               }
-            ]
-        </div>
+        .divider { width: 60px; height: 4px; background: linear-gradient(to right, #2980b9, #6dd5fa); border-radius: 2px; margin: 16px auto 30px; }
 
-        <h2>Voici des spots d'escalade recommandés :</h2>
+        .user-info { background: linear-gradient(135deg, #2980b9, #1a5f8a); color: #fff; padding: 20px 25px; border-radius: 12px; max-width: 640px; margin: 0 auto 35px; display: flex; justify-content: space-between; align-items: center; }
+        .user-info .user-name { font-size: 1.2em; font-weight: 700; }
+        .user-info .user-level { background: rgba(255,255,255,0.2); border-radius: 20px; padding: 5px 15px; font-size: 0.85em; font-weight: 600; letter-spacing: 0.5px; }
 
-        #[ %dw 2.0
-           output application/xml writeDeclaration=false
-           var spots = payload."climbing-spots"
-           ---
-           div: spots map (spot) -> {
-               div @(class:"spot-card"): {
-                   h2: "Nom du spot : $(spot.spotName)",
-                   h3: "Localisation : $(spot.location)",
-                   p: "Difficulté : $(spot.grade.difficulty)",
-                   p: "Niveau requis : $(spot.grade.level)",
-                   h3: "Prévisions météo :",
-                   table: {
-                       thead: tr: { th: ["Date", "Temp min", "Temp max", "Météo"] },
-                       tbody: spot.forecast map (f) -> 
-                           tr: { td: [ f.date, f.temperature.min ++ "°C", f.temperature.max ++ "°C", f.weather ] }
-                   }
-               }
-           }
-        ]
-    </body>
+        .section-title { text-align: center; font-size: 1.1em; color: #555; margin-bottom: 20px; font-weight: 600; letter-spacing: 0.3px; }
+        .section-title span { color: #2980b9; }
+
+        .spot-card { background: #fff; border-radius: 14px; margin-bottom: 24px; max-width: 640px; margin-left: auto; margin-right: auto; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.08); margin-bottom: 24px; }
+        .spot-card-header { background: linear-gradient(135deg, #1a5f8a, #2980b9); padding: 18px 22px; color: #fff; }
+        .spot-card-header h2 { font-size: 1.15em; font-weight: 700; margin-bottom: 10px; }
+        .spot-meta { display: flex; gap: 10px; flex-wrap: wrap; }
+        .badge { background: rgba(255,255,255,0.2); border-radius: 20px; padding: 3px 12px; font-size: 0.78em; font-weight: 600; }
+        .badge.difficulty { background: rgba(255,255,255,0.35); }
+
+        .spot-card-body { padding: 18px 22px; }
+        h3.forecast-title { font-size: 0.9em; color: #7f8c8d; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 12px; font-weight: 600; }
+
+        table { width: 100%; border-collapse: collapse; font-size: 0.88em; }
+        thead tr { background: #f0f6fb; }
+        th { padding: 10px 12px; text-align: left; color: #2980b9; font-weight: 700; font-size: 0.82em; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 2px solid #d6eaf8; }
+        td { padding: 9px 12px; border-bottom: 1px solid #f0f0f0; color: #444; }
+        tbody tr:last-child td { border-bottom: none; }
+        tbody tr:hover { background-color: #f7fbff; }
+        td:nth-child(2), td:nth-child(3) { color: #2980b9; font-weight: 600; }
+        .footer { text-align: center; margin-top: 30px; color: #aaa; font-size: 0.8em; }
+    </style>
+</head>
+<body>
+<header>
+    <h1>🧗 Mes Spots d'Escalade</h1>
+    <span class="user-name">Bonjour, #[%dw 2.0 output text/plain --- payload.user.firstname ++ " " ++ payload.user.lastname] !</span>
+    <p class="subtitle"> Nous savons que vous êtes de niveau #[%dw 2.0 output text/plain --- payload.user.level]</p>
+    <div class="divider"></div>
+</header>
+<div class="user-info">
+</div>
+<p class="section-title">Voici les <span>#[%dw 2.0 output text/plain --- sizeOf(payload."climbing-spots" default [])]</span> spots que nous vous recommandons: </p>
+#[%dw 2.0
+  output text/plain
+  var spots = payload."climbing-spots" default []
+  ---
+  (spots map (spot) ->
+    do {
+      var forecastRows = (spot.forecast map (f) -> "<tr><td>$(f.date)</td><td>$(f.temperature.min)</td><td>$(f.temperature.max)</td><td>$(f.weather)</td></tr>") joinBy ''
+      ---
+      "<div class='spot-card'><div class='spot-card-header'><h2>$(spot.location.spotName)</h2><div class='spot-meta'><span class='badge'>📍 $(spot.location.region)</span><span class='badge difficulty'>⚡ $(spot.grade.difficulty)</span><span class='badge'>🎯 Niveau : $(spot.grade.level)</span></div></div><div class='spot-card-body'><h3 class='forecast-title'>📅 Prévisions météo</h3><table><thead><tr><th>Date</th><th>Temp min</th><th>Temp max</th><th>Météo</th></tr></thead><tbody>$(forecastRows)</tbody></table></div></div>"
+    }
+  ) joinBy ''
+]
+<div class="footer">Bonne grimpe ! </div>
+</body>
 </html>

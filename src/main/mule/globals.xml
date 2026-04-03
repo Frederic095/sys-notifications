@@ -20,7 +20,7 @@ http://www.mulesoft.org/schema/mule/email http://www.mulesoft.org/schema/mule/em
 			port="${https.port}" />
 	</http:listener-config>
 	<apikit:config name="sys-notifications-api-config"
-		api="resource::10339a90-b6cf-4a68-8cc1-ec2e54f05373:sys-notifications-api:1.0.1:raml:zip:sys-notifications-api.raml"
+		api="resource::10339a90-b6cf-4a68-8cc1-ec2e54f05373:sys-notifications-api:1.0.3:raml:zip:sys-notifications-api.raml"
 		outboundHeadersMapName="outboundHeaders"
 		httpStatusVarName="httpStatus" />
 	<configuration-properties
