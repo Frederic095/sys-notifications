@@ -12,4 +12,4 @@ sendgrid:
   port: "587"
   api_key: "${secure::sendgrid.api_key}"
   fromAddress: "frederic.nguyen095@gmail.com"
-  user: "frederic.nguyen095@gmail.com!"
+  user: "frederic.nguyen095@gmail.com"
